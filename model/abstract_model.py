@@ -32,13 +32,13 @@ class AbstractModel(pl.LightningModule):
         self.initialize_model()
         
         self.metrics = {}
-        for stage in ["train", "valid", "test"]:
-            stage_metrics = self.initialize_metrics(stage)
-            # Rigister metrics as attributes
-            for metric_name, metric in stage_metrics.items():
-                setattr(self, metric_name, metric)
+        # for stage in ["train", "valid", "test"]:
+        #     stage_metrics = self.initialize_metrics(stage)
+        #     # Rigister metrics as attributes
+        #     for metric_name, metric in stage_metrics.items():
+        #         setattr(self, metric_name, metric)
                 
-            self.metrics[stage] = stage_metrics
+        #     self.metrics[stage] = stage_metrics
         
         if lr_scheduler_kwargs is None:
             # Default lr_scheduler
@@ -51,6 +51,7 @@ class AbstractModel(pl.LightningModule):
         else:
             self.lr_scheduler_kwargs = lr_scheduler_kwargs
         
+        
         if optimizer_kwargs is None:
             # Default optimizer
             self.optimizer_kwargs = {
@@ -61,7 +62,7 @@ class AbstractModel(pl.LightningModule):
             print("No optimizer_kwargs provided. The default optimizer is AdamW.")
         else:
             self.optimizer_kwargs = optimizer_kwargs
-        self.init_optimizers()
+        # self.init_optimizers()
 
         self.save_path = save_path
         self.save_weights_only = save_weights_only
@@ -390,6 +391,7 @@ class AbstractModel(pl.LightningModule):
                                        **copy_optimizer_kwargs)
 
         tmp_kwargs = copy.deepcopy(self.lr_scheduler_kwargs)
+        print(tmp_kwargs)
         lr_scheduler = tmp_kwargs.pop("class")
         self.lr_scheduler = eval(lr_scheduler)(self.optimizer, **tmp_kwargs)
     
