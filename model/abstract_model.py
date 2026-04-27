@@ -32,13 +32,13 @@ class AbstractModel(pl.LightningModule):
         self.initialize_model()
         
         self.metrics = {}
-        for stage in ["train", "valid", "test"]:
-            stage_metrics = self.initialize_metrics(stage)
-            # Rigister metrics as attributes
-            for metric_name, metric in stage_metrics.items():
-                setattr(self, metric_name, metric)
+        # for stage in ["train", "valid", "test"]:
+        #     stage_metrics = self.initialize_metrics(stage)
+        #     # Rigister metrics as attributes
+        #     for metric_name, metric in stage_metrics.items():
+        #         setattr(self, metric_name, metric)
                 
-            self.metrics[stage] = stage_metrics
+        #     self.metrics[stage] = stage_metrics
         
         if lr_scheduler_kwargs is None:
             # Default lr_scheduler
